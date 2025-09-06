@@ -7,7 +7,7 @@ RUN mvn clean package -DskipTests
 # Etapa 2: Runtime
 FROM amazoncorretto:21-alpine3.18
 WORKDIR /app
-COPY --from=build --chown=spring:spring /app/target/blog-management-*.jar app.jar
+COPY --from=build --chown=spring:spring /app/target/blog-*.jar app.jar
 
 EXPOSE 8080
 
