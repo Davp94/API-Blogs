@@ -2,6 +2,7 @@ package com.pruebabisa.blog.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -16,6 +17,7 @@ import java.util.List;
 @Entity
 @Table(name = "autor")
 @Data
+@Builder
 public class Autor {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -51,5 +53,5 @@ public class Autor {
     @JsonManagedReference("autor-blogs")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private List<Blog> blogs = new ArrayList<>();
+    private List<Blog> blogs;
 }
