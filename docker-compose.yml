@@ -1,0 +1,49 @@
+services:
+  # Base de datos PostgreSQL
+  postgres:
+    image: postgres:16-alpine
+    container_name: blog-postgres
+    environment:
+      POSTGRES_DB: blogdb
+      POSTGRES_USER: bloguser
+      POSTGRES_PASSWORD: blogpass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - blog-network
+    restart: unless-stopped
+
+  # Aplicación Spring Boot
+  blog-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: blog-management-api
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: blogdb
+      DB_USERNAME: bloguser
+      DB_PASSWORD: blogpass
+      JAVA_OPTS: "-Xms512m -Xmx1024m"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - blog-network
+    restart: unless-stopped
+    volumes:
+      - ./logs:/app/logs
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  blog-network:
+    driver: bridge
