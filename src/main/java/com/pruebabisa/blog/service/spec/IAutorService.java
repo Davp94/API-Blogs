@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.pruebabisa.blog.dto.request.AutorRequest;
 import com.pruebabisa.blog.dto.response.AutorResponse;
-import com.pruebabisa.blog.entity.Autor;
 
 public interface IAutorService {
 

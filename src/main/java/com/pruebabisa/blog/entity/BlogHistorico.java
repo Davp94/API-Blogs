@@ -8,8 +8,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.pruebabisa.blog.enums.PeriodicidadEnum;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
@@ -19,6 +21,8 @@ import lombok.ToString;
 })
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class BlogHistorico {
     
     @Id

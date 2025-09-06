@@ -1,20 +1,18 @@
 package com.pruebabisa.blog.entity;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.pruebabisa.blog.enums.PeriodicidadEnum;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
@@ -25,13 +23,14 @@ import lombok.ToString;
 })
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Blog {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     
-
     @Column(nullable = false, length = 255)
     private String titulo;
     
@@ -46,13 +45,11 @@ public class Blog {
     private PeriodicidadEnum periodicidad;
     
     @Column(name = "permite_comentarios", nullable = false)
-    private Boolean permiteComentarios = true;
+    private Boolean permiteComentarios;
     
-    @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
     
-    @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
     
@@ -66,13 +63,13 @@ public class Blog {
     @JsonManagedReference("blog-comentarios")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private List<Comentario> comentarios = new ArrayList<>();
+    private List<Comentario> comentarios;
     
     @OneToMany(mappedBy = "blog", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference("blog-historico")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private List<BlogHistorico> historico = new ArrayList<>();
+    private List<BlogHistorico> historico;
     
     public String getNombreCompletoAutor() {
         if (autor != null) {

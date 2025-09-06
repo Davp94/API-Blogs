@@ -2,22 +2,25 @@ package com.pruebabisa.blog.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "autor")
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Autor {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

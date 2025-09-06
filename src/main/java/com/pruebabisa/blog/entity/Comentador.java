@@ -1,7 +1,6 @@
 package com.pruebabisa.blog.entity;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -9,15 +8,19 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
 @Table(name = "comentador")
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Comentador {
     
     @Id
@@ -44,10 +47,9 @@ public class Comentador {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
     
-    // Relación con comentarios
     @OneToMany(mappedBy = "comentador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference("comentador-comentarios")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private List<Comentario> comentarios = new ArrayList<>();
+    private List<Comentario> comentarios;
 }
